@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vesta | Home & Hearth Finance</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --vesta-orchid: #b497ff;
+      --vesta-midnight: #1a1625;
+      --vesta-deep-orchid: #8a66ff;
+      --vesta-coral: #ff8e7a;
+      --vesta-cream: #fdfbff;
+      --vesta-glass: rgba(255, 255, 255, 0.4);
+    }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--vesta-cream);
+      color: var(--vesta-midnight);
+      overflow-x: hidden;
+    }
+    .mesh-gradient {
+      background: 
+        radial-gradient(circle at 0% 0%, rgba(180, 151, 255, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 100% 100%, rgba(255, 142, 122, 0.08) 0%, transparent 40%),
+        var(--vesta-cream);
+    }
+    .serif { font-family: 'Playfair Display', serif; }
+    
+    .glass-premium {
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(40px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 25px 50px -12px rgba(26, 22, 37, 0.04);
+      transition: all 0.5s cubic-bezier(0.2, 1, 0.2, 1);
+    }
+    .glass-premium:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 40px 80px -20px rgba(180, 151, 255, 0.15);
+      border-color: rgba(180, 151, 255, 0.3);
+    }
+
+    /* Breathing Hearth Animation */
+    @keyframes hearthBreath {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(180, 151, 255, 0.15)); }
+      50% { transform: scale(1.03); filter: drop-shadow(0 0 45px rgba(180, 151, 255, 0.35)); }
+    }
+    .animate-hearth {
+      animation: hearthBreath 8s ease-in-out infinite;
+    }
+
+    /* Bokeh Background Particles */
+    @keyframes bokehDrift {
+      0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+      50% { transform: translate(30px, -30px) scale(1.1); opacity: 0.5; }
+      100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+    }
+    .bokeh {
+      position: fixed;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, var(--vesta-orchid) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(80px);
+      animation: bokehDrift 20s ease-in-out infinite;
+    }
+
+    /* Shimmer Effect */
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    .title-shimmer {
+      background: linear-gradient(to right, var(--vesta-midnight) 20%, var(--vesta-deep-orchid) 40%, var(--vesta-deep-orchid) 60%, var(--vesta-midnight) 80%);
+      background-size: 200% auto;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 6s linear infinite;
+    }
+
+    /* Entrance Animation */
+    @keyframes slideInUp {
+      from { opacity: 0; transform: translateY(30px) scale(0.98); filter: blur(10px); }
+      to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+    }
+    .animate-bloom {
+      animation: slideInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Interactive List Items */
+    .stagger-item {
+      opacity: 0;
+      animation: slideInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Coin Toss Animation */
+    @keyframes coinToss {
+      0% { transform: translateY(0) rotateY(0); opacity: 1; }
+      50% { transform: translateY(-100px) rotateY(180deg); opacity: 0.8; }
+      100% { transform: translateY(0) rotateY(360deg); opacity: 0; }
+    }
+    .coin-particle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 1000;
+      animation: coinToss 1s ease-out forwards;
+    }
+
+    .nav-active {
+      background: var(--vesta-midnight);
+      color: white !important;
+      transform: scale(1.05);
+      box-shadow: 0 20px 40px rgba(26, 22, 37, 0.2);
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-thumb {
+      background: var(--vesta-orchid);
+      border-radius: 10px;
+    }
+
+    /* Magnetic micro-interaction */
+    .magnetic { transition: transform 0.3s cubic-bezier(0.2, 1, 0.2, 1); }
+    .magnetic:hover { transform: scale(1.1); }
+  </style>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "recharts": "https://esm.sh/recharts@^3.6.0",
+    "@google/genai": "https://esm.sh/@google/genai@^1.35.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="mesh-gradient min-h-screen">
+  <div class="bokeh" style="top: -10%; left: -10%;"></div>
+  <div class="bokeh" style="bottom: -10%; right: -10%; animation-delay: -10s; background: radial-gradient(circle, var(--vesta-coral) 0%, transparent 70%);"></div>
+  <div id="root"></div>
+  <div id="animation-layer"></div>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
